@@ -19,11 +19,13 @@ RUN apk add --no-cache \
 	&& make \
 	&& cd ../ \
 
-	&& git clone git://erdgeist.org/opentracker \
-		&& cd opentracker \
-		&& make \
+	&& git clone git://erdgeist.org/opentracker
 
-	&& mv /tmp/opentracker/opentracker /bin/ \
+COPY ./Makefile /tmp/opentracker/
+
+	&& make \
+
+	&& cp /tmp/opentracker/opentracker.debug /bin/opentracker \
 
 	&& apk del gcc g++ make git cvs zlib-dev \
 	&& rm -rf /var/cache/apk/* /tmp/*

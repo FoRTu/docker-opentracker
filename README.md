@@ -1,23 +1,13 @@
-# opentracker-docker
+# OpenTracker Docker image
 
 Opentracker is a open and free bittorrent tracker. It aims for minimal resource usage and is intended to run at any GNU/Linux system. Currently it is deployed as an open and free tracker instance.
 
-## How to run Opentracker
-First of all you have to set the configuration file *opentracker.conf*. You can use [this as a template](opentracker.conf) if you want, or create a new file. *Opentracker* can be run in open-mode or limit it with hashes blacklist or whitelist.
+## About this OpenTracker image
+First of all, this tracker is compiled to use a *hash whitelist*, so only hashes stored on `whitelist.txt` are going to be served.
 
-## Run it in *open-mode*
-In this mode any hash request will be recorded. Just add the tracker url to any torrent and when the bittorrent client request for peers,  it will record the hash and served on future requests.
-
-Copy the [opentracker.conf file](opentracker.conf) as it is on a folder share the path with the container changing */PATH/CONFIG_FILE/* in the *docker run*:
-
-`docker run -d --name opentracker -p 6969:6969/udp -p 6969:6969/tcp -v /PATH/CONFIG_FILE/:/etc/opentracker/ fortu/docker-opentracker`
-
-## How to whitelist your opentracker torrents
-If you solely want to run the opentracker instance for specific torrents you have to whitelist them.
-
-Follow these steps to whitelist your .torrent files:
- 1. Create a `whitelist.txt` file.
- 2. Copy and paste your torrent `info_hashes` into the file:
+## How to run it
+Follow these steps to enable your torrent hashes:
+ 1. Open `whitelist.txt` file and paste your torrents `info_hashes` into. One `hash` per line.
 
      Example *whitelist.txt*:
      ```
@@ -25,18 +15,15 @@ Follow these steps to whitelist your .torrent files:
      890123456789abcdef0123456789abcdef012345
      ```
 
- 3. Uncomment line 37 in the [opentracker.conf](opentracker.conf):
-
-     ... *access.whitelist /etc/opentracker/whitelist.txt*
-
- 4. Copy those files, *opentracker.conf* and *whitelist.txt*, to a folder.
+ 2. Copy those files, `opentracker.conf` and `whitelist.txt`, into a folder.
 
 Replace in the *docker run* command the path of the folder:
 
 `docker run -d --name opentracker -p 6969:6969/udp -p 6969:6969/tcp -v /PATH/CONFIG_FILE/:/etc/opentracker/ fortu/docker-opentracker`
 
-## How to blacklist some torrents
-Just follow the steps from obove but paste the `info_hashes` into the `blacklist.txt` file and uncomment line 41 in the `opentracker.conf` file.
+That's it!
+
+Now the bittorrent tracker is running and serving only the torrents that you want. If you want to add more torrents to your tracker, just stop the container, add the new `hash` to the `whitelist.txt` and start the container back. Also you can customize some configuration of the tracker by editing `opentracker.conf` file.
 
 ## Thanks & Donations
 [Best wishes to the creators of opentracker!](http://erdgeist.org/arts/software/opentracker/)
