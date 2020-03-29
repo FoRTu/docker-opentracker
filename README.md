@@ -19,7 +19,7 @@ Follow these steps to enable your torrent hashes:
 
 Replace in the *docker run* command the path of the folder:
 
-`docker run -d --name opentracker -p 6969:6969/udp -p 6969:6969/tcp -v /PATH/CONFIG_FILE/:/etc/opentracker/ fortu/docker-opentracker`
+`docker run -d --name opentracker -p 6969:6969/udp -p 6969:6969/tcp -v /PATH/CONFIG_FILE/:/etc/opentracker/ fortu/opentracker`
 
 That's it!
 
