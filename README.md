@@ -65,7 +65,7 @@ Follow this steps to build your own public and open bittorrent tracker:
 5. Staying in the same folder of the *Dockerfile*, run the build command:
 
   ```bash
-  docker build --no-cache=true -t fortu/opentracker .
+  docker build --no-cache=true -t myopentracker .
   ```
 
 6. Create a `blacklist.txt` file within a folder and copy there the `opentracker.conf` file too. This folder should be accessible by the container once we run it.
@@ -112,7 +112,7 @@ Follow this steps to build your own public and open bittorrent tracker:
 15. Now you can run the next *docker run* command taking account of the changes you have done previously. You have to change the port number and the protocol you have define and the full path of the folder where you placed the `blacklist.txt` and the `opentracker.conf`files, were you have changed the configuration.
 
   ```bash
-  docker run -d --name opentracker -p 2571:2571/udp -v /PATH/CONFIG_FILES/:/etc/opentracker/ fortu/opentracker
+  docker run -d --name opentracker -p 2571:2571/udp -v /PATH/CONFIG_FILES/:/etc/opentracker/ myopentracker
   ```
 
 Now your bittorrent tracker is running and listening on the TCP/IP *port* and the protocol you have define. The only thing you have todo is to add the *URL* of your tracker to your torrent files or magnet links, and the tracker will start to serve it.
