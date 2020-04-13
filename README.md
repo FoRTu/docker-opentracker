@@ -29,9 +29,10 @@ Now the bittorrent tracker is running and serving only the torrents that you wan
 Your tracker URL will be something like this:
 
 `http://[YOUR PUBLIC IP OR DOMAIN]:6969/announce`
+
 `udp://[YOUR PUBLIC IP ORDOMAIN]:6969/announce`
 
-By default in the `opentracker.conf` file the *TCP* and *UDP* protocols are enabled. So you can use any of two urls. be sure that you have youre firewall/NAT configured to recieve any request from the *6969* port in this case.
+By default in the `opentracker.conf` file the *TCP* and *UDP* protocols are enabled. So you can use any of two urls. be sure that you have your firewall/NAT configured to recieve any request from the *6969* port in this case.
 
 Also you can customize some configuration of the tracker by editing `opentracker.conf` file. For example, change the port *6969* by another one, force only the *TCP* or *UDP* protocols, enable stats and how to access to them etc.
 
@@ -94,7 +95,7 @@ Follow this steps to build your own public and open bittorrent tracker:
   listen.udp 0.0.0.0:2571
   ```
 
-11. Is possible to enable the *stats* and the way of access to its. First of all is to enable it by uncommenting the next line. To haide or obfuscte the stats you can change the *path* too. In this case *mytrackerstats*:
+11. Is possible to enable the *stats* and the way of access to its. First of all is to enable it by uncommenting the next line and if you want haide or obfuscte the stats, just change the *path* too. In this case *mytrackerstats*:
 
   ```bash
   access.stats_path mytrackerstats
@@ -111,7 +112,7 @@ Follow this steps to build your own public and open bittorrent tracker:
 15. Now you can run the next *docker run* command taking account of the changes you have done previously. You have to change the port number and the protocol you have define and the full path of the folder where you placed the `blacklist.txt` and the `opentracker.conf`files, were you have changed the configuration.
 
   ```bash
-  docker run -d --name opentracker -p 6969:6969/udp -p 6969:6969/tcp -v /PATH/CONFIG_FILES/:/etc/opentracker/ fortu/opentracker
+  docker run -d --name opentracker -p 2571:2571/udp -v /PATH/CONFIG_FILES/:/etc/opentracker/ fortu/opentracker
   ```
 
 Now your bittorrent tracker is running and listening on the TCP/IP *port* and the protocol you have define. The only thing you have todo is to add the *URL* of your tracker to your torrent files or magnet links, and the tracker will start to serve it.
@@ -124,9 +125,9 @@ But if you choose only the *TCP* or the both options, *TCP* & *UDP*, the url wil
 
 `http:\\[PUBLIC IP OR DOMAIN]:2571/announce`
 
-Is very important to open the *port* you have define on the configuration file in your *firewall* or make the necessary changes if you are behind a *NAT*. if you don't do it the requests that arrives from the internet won't be able to forward to your tracker.
+Is very important to open the *port* you have define on the configuration file in your *firewall* or make the necessary changes if you are behind a *NAT*. If you don't do it the requests that arrives from the internet won't be able to forward to your tracker.
 
-If you enabled the *stats* you can access to them by any browser just tipyng the correct url. Be account to change port and the path you define in the configuration file:
+If you had enable the stats you can access to them by any browser just typing the correct url. Be account to change port and the path you define in the configuration file:
 
 `http://[PUBLIC IP O DOMAIN]:[PORT]/[PATH]?mode=everything`
 
